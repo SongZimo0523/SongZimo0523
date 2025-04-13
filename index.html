@@ -221,16 +221,16 @@
             <img src="3.17.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>上述操作评估了协变量水平的Kaplan-Meier生存曲线，结果显示：`gender`、`phoneService`，以及`paymentMethod`的 “Bank transfer (automatic)” 和 “Credit card (automatic)” 的分组间没有显著的差异，这几项的取值可能不会显著影响用户的生存曲线，而其他列数据均对生存曲线有显著性影响 </p>
             <p>除此之外，还可以进一步提取指定协变量取值的生存概率，用于后续分析，输出结果如图所示：</p>
-            <img src="3.18.png" style="width: 5%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <img src="3.18.png" style="width: 7%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>Kaplan-Meier适用于单变量分析，对于影响客户生存曲线的多变量分析任务，由下一节Cox Proportional Hazards 模型完成</p>
 
             <h4>4. Cox Proportional Hazards 模型</h4>
             <p>Cox Proportional Hazards 模型，即cox风险比例模型，是生存分析中的一种半参数模型，通过协变量来估计风险比。模型假设每个个体的生存风险（即事件发生的速率）是由其协变量决定的，而这些协变量影响生存风险的方式是比例性的</p>
             <p>如下方公式所示，风险比 = 基线风险 * 部分风险，其中部分风险为变量值与基线变量不同时发生的危险变化</p>
-            <img src="4.1.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <img src="4.1.png" style="width: 26%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>该模型假设实验组与baseline组的风险比例随时间成正比</p>
             <p>对相关列进行one-hot编码后，使用生存时间（tenure）和事件标志（churn）拟合 Cox Proportional Hazards 模型：</p>
-            <img src="4.2.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <img src="4.2.png" style="width: 40%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>评估Cox比例风险模型需要关注：</p>
             <ul>
                 <li>1.各协变量的统计显著性</li>
@@ -239,17 +239,17 @@
             </ul>
             <p>从summary中可以看到这里的四个协变量在alpha=0.05时都是显著的，summary中也显示了模型参数的置信区间</p>
             <p>各协变量对于风险比例的影响由下图给出，可以看出四个协变量独热编码对应值为1时，都会减少停止订阅的风险，减少的幅度从高到低为：`onlineBackup_Yes`, `techSupport_Yes`, `dependents_Yes`, `internetService_DSL`</p>
-            <img src="4.3.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <img src="4.3.png" style="width: 25%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>需要进一步检查 Cox 风险比例模型的比例风险假设是否成立</p>
             <p>1.Statistical Test检查是否满足假设，只有`dependents_Yes`满足了Cox模型的比例风险假设</p>
-            <img src="4.4.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <img src="4.4.png" style="width: 28%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>2.Schoenfeld Residuals输出图像检查是否满足假设</p>
             <p>理想情况下Schoenfeld Residuals不应随时间有明显变动，即残差线应尽量与水平平行并平坦。从图中可知`dependents_Yes`满足该假设，`internetService_DSL`对应的残差随时间而变动。`onlineBackup_Yes`对应的残差随时间变动最明显，`techSupport_Yes`对应的残差在时间线尽头附近被影响得最明显</p>
-            <img src="4.5.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
-            <img src="4.6.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <img src="4.5.png" style="width: 33%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <img src="4.6.png" style="width: 33%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>3.Log-log Kaplan-Meier Plots检查是否满足假设</p>
             <p>Log-Log Kaplan-Meier 曲线结果显示`internetService`不同组曲线间平行效果最差。`onlineBackup`, `techSupport`, `dependents`三项在log(timeline)为1-3之间时，各组曲线较为平行，但小于1或大于3时平行效果较差</p>
-            <img src="4.7.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <img src="4.7.png" style="width: 33%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>检验结果为Cox风险比例模型用于该数据并不满足假设，有以下解决方案：</p>
             <ul>
                 <li>1.保持模型不变，建模目标为预测，关注损失度量来选择最终模型</li>
@@ -264,14 +264,14 @@
             <h4>5. Accelerated Failure Time 模型</h4>
             <p>加速失效时间模型（Accelerated Failure Time Model）与Cox比例风险模型不同，AFT模型并不直接建模风险比，而是通过对生存时间加速或减速来建模。它假设不同的协变量会以一定的速率影响事件发生的时间，如果某个协变量的系数为正，则说明该协变量会加速事件的发生，在此数据中表现为客户流失</p>
             <p>对相关列进行one-hot编码后，使用 Log-Logistic AFT 模型进行拟合：</p>
-            <img src="5.1.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <img src="5.1.png" style="width: 50%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>评估AFT模型需要关注：</p>
             <ul>
                 <li>1.各协变量的统计显著性（p值），上图显示各协变量p值都小于0.05，可认为各协变量在统计学上都显著</li>
                 <li>2.模型参数的置信区间，上图亦有给出</li>
                 <li>3.各协变量对于风险比例的影响，举例来说`deviceProtection_Yes`的coef=0.48，exp(coef)=1.62，则用户使用设备保护时，用户的流失速度会增加1.62倍</li>
             </ul>
-            <img src="5.2.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <img src="5.2.png" style="width: 33%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>根据上面显示的AFT 模型的参数图，可以看出`onlineSecurity_Yes`，`internetService_DSL`对流失速度的增加影响最小</p>
             <p>评判AFT模型是否满足假设：</p>
             <ul>
@@ -279,8 +279,8 @@
                 <li>2.使用的特定分布是否适用，线条为直时满足假设</li>
             </ul>
             <p>绘制按不同协变量分组的 Log-log 变换后的 Kaplan-Meier 曲线，结论在最后给出</p>
-            <img src="5.3.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
-            <img src="5.4.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <img src="5.3.png" style="width: 33%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <img src="5.4.png" style="width: 33%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>可以看到，绝大多数图中的线是直的但不互相平行，证明所选的分布是正确的，但是AFT模型不适用于此数据的生存分析</p>
 
             <h4>6. 计算客户生涯价值</h4>
@@ -292,10 +292,10 @@
             <p>平均每月期望收入净现值 = 平均每月期望收入 / (1 + internal rate of return ^ 合同月数) </p>
             <p>净现值（NPV）考虑了货币的时间价值，可通过调整折现率反映不同风险水平。最终我们通过累计净现值来评估客户的生涯价值，即公司保证不会赔本的情况下对该类客户的最大支出</p>
             <p>根据上图类型用户，计算出的各数据结果：</p>
-            <img src="6.2.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <img src="6.2.png" style="width: 40%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>结果表明：对于无家属及合作伙伴、使用DSL网络服务、无网络备份与科技支持的客户，在`internal rate of return` =0.1时，该类客户到第十个月仍保持订阅的概率为0.63，累计净现值为218.67，即若要实现盈利，电信公司前10个月在每个该类用户的投入不得超过218.67，累计净现值也显示了该类用户在一定订阅时间段的生涯价值</p>
             <p>也可对以上生存概率、累计净现值等数据进行可视化，辅助公司决策</p>
-            <img src="6.3.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <img src="6.3.png" style="width: 33%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>该类用户在36个月的累计净现值约为500，生存概率在70天时降低至接近为零，电信公司需考虑到该类客户在连续订阅50个月后极有可能取消订阅的风险，并做出应对措施</p>
 
             <h4>7. 总结</h4>
