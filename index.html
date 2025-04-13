@@ -27,14 +27,15 @@
             align-items: center;
             padding: 20px;
             margin-top: 50px;
-            margin-left: 150px; /* 整体右移部分 */
+            margin-left: 100px; /* 整体右移部分 */
         }
 
         /* 个人照片 */
         .photo {
             width: 180px; /* 照片放大1.2倍 */
             height: auto; /* 保持原始比例 */
-            margin-right: 200px; /* 向右移动一些 */
+            margin-right: 180px; /* 向右移动一些 */
+            transform: translateY(-100px); /* 向上移动一些，值可以根据需要调整 */
         }
 
         /* 个人信息框 */
@@ -137,13 +138,13 @@
             <div class="education">
                 <h3>EDUCATION:</h3>
                 <ul>
-                    <li><strong>Southern University of Science and Technology</strong></li>
-                    <li class="indent">Department of Statistics and Data Science</li>
-                    <li class="indent">Bachelor of Data Science and Big Data Technology</li>
                     <div class="info-row">
+                        <li><strong>Southern University of Science and Technology</strong></li>
                         <li>Shenzhen, China</li>
                         <li>09/2022 - 07/2026</li>
                     </div>
+                    <li class="indent">Department of Statistics and Data Science</li>
+                    <li class="indent">Bachelor of Data Science and Big Data Technology</li>
                 </ul>
             </div>
 
@@ -153,7 +154,7 @@
                 <li>Data Statistics and Analysis</li>
             </ul>
 
-            <h3>INTERESTS:</h3>
+            <h3>PERSONAL INTERESTS:</h3>
             <ul>
                 <li>Violin, Go, Photography</li>
             </ul>
@@ -169,7 +170,7 @@
 
     <!-- 博客模块 -->
     <div class="blog-section">
-        <div class="blog-header" onclick="toggleBlogContent()">Survival Analysis Report</div>
+        <div class="blog-header" onclick="toggleBlogContent()">Survival Analysis Blog</div>
         <div class="blog-content">
             <p>生存分析是一种统计方法，主要用于分析时间到特定事件发生的数据，核心目的是估算和比较不同组的生存概率。</p>
             <p>本次生存分析针对虚拟电信公司数据，目的是预测客户在一定时间内的生存（未流失）概率，特别考虑了在某些条件下客户是否会加速流失的问题，并以此评估客户生涯价值。</p>
