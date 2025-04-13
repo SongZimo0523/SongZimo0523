@@ -260,7 +260,50 @@
             </ul>
             <p>除此之外，还可以进一步提取指定协变量取值的生存概率，用于后续分析，输出结果如图所示：</p>
             <p>除此之外，还可以进一步提取指定协变量取值的生存概率，用于后续分析，输出结果如图所示：</p>
-            
+
+            <h4>5. Accelerated Failure Time 模型</h4>
+            <p>加速失效时间模型（Accelerated Failure Time Model）与Cox比例风险模型不同，AFT模型并不直接建模风险比，而是通过对生存时间加速或减速来建模。它假设不同的协变量会以一定的速率影响事件发生的时间，如果某个协变量的系数为正，则说明该协变量会加速事件的发生，在此数据中表现为客户流失</p>
+            <p>对相关列进行one-hot编码后，使用 Log-Logistic AFT 模型进行拟合：</p>
+            <img src="5.1.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <p>评估AFT模型需要关注：</p>
+            <ul>
+                <li>1.各协变量的统计显著性（p值），上图显示各协变量p值都小于0.05，可认为各协变量在统计学上都显著</li>
+                <li>2.模型参数的置信区间，上图亦有给出</li>
+                <li>3.各协变量对于风险比例的影响，举例来说`deviceProtection_Yes`的coef=0.48，exp(coef)=1.62，则用户使用设备保护时，用户的流失速度会增加1.62倍</li>
+            </ul>
+            <img src="5.2.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <p>根据上面显示的AFT 模型的参数图，可以看出`onlineSecurity_Yes`，`internetService_DSL`对流失速度的增加影响最小</p>
+            <p>评判AFT模型是否满足假设：</p>
+            <ul>
+                <li>1.是否符合比例赔率假设，线条平行时满足假设</li>
+                <li>2.使用的特定分布是否适用，线条为直时满足假设</li>
+            </ul>
+            <p>绘制按不同协变量分组的 Log-log 变换后的 Kaplan-Meier 曲线，结论在最后给出</p>
+            <img src="5.3.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <img src="5.4.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <p>可以看到，绝大多数图中的线是直的但不互相平行，证明所选的分布是正确的，但是AFT模型不适用于此数据的生存分析</p>
+
+            <h4>6. 计算客户生涯价值</h4>
+            <p>对于电信公司来说，最重要的是确定为各类型的客户的投入量。所以，我们进一步用生存模型的输出计算客户的生涯价值</p>
+            <p>创建所选变量的小组件，其中internal rate为后续计算净现值的参数，其他变量为0或1的分类变量，用于确定目标用户的类型</p>
+            <img src="6.1.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <p>通过用户生存概率等数据，可以进一步计算出选定计划的月度利润，平均每月期望收入，平均每月期望收入净现值，累计净现值</p>
+            <p>平均每月期望收入 = 月度利润 * 生存概率</p>
+            <p>平均每月期望收入净现值 = 平均每月期望收入 / (1 + internal rate of return ^ 合同月数) </p>
+            <p>净现值（NPV）考虑了货币的时间价值，可通过调整折现率反映不同风险水平。最终我们通过累计净现值来评估客户的生涯价值，即公司保证不会赔本的情况下对该类客户的最大支出</p>
+            <p>根据上图类型用户，计算出的各数据结果：</p>
+            <img src="6.2.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <p>结果表明：对于无家属及合作伙伴、使用DSL网络服务、无网络备份与科技支持的客户，在`internal rate of return` =0.1时，该类客户到第十个月仍保持订阅的概率为0.63，累计净现值为218.67，即若要实现盈利，电信公司前10个月在每个该类用户的投入不得超过218.67，累计净现值也显示了该类用户在一定订阅时间段的生涯价值</p>
+            <p>也可对以上生存概率、累计净现值等数据进行可视化，辅助公司决策</p>
+            <img src="6.3.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <p>该类用户在36个月的累计净现值约为500，生存概率在70天时降低至接近为零，电信公司需考虑到该类客户在连续订阅50个月后极有可能取消订阅的风险，并做出应对措施</p>
+
+            <h4>7. 总结</h4>
+            <p>本次生存分析任务使用Kaplan-Meier、Cox Proportional Hazards、Accelerated Failure Time等模型对电信客户不订阅的生存概率进行了分析，并且运用生存分析结果计算客户的生涯价值，为电信公司决策提供了帮助</p>
+            <p>生存分析结果显示：</p>
+            <p>性别、手机服务、银行或信用卡的支付方式不会显著影响用户的生存曲线，而其他客户数据均对生存曲线有显著性影响 。使用网络备份 、科技支持、存在家属依赖、使用DSL网络服务都会减少停止订阅的风险（即增加生存概率），并且增加的幅度按排序从高到低</p>
+            <p>以无家属及合作伙伴、使用DSL网络服务、无网络备份与科技支持的客户为例，该类用户在36个月的累计净现值约为500，生存概率在70天时降低至接近为零，电信公司需考虑到该类客户在连续订阅50个月后极有可能取消订阅的风险，并做出应对措施</p>
+
         </div>
     </div>
 
