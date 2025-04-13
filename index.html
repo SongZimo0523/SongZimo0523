@@ -27,14 +27,14 @@
             align-items: center;
             padding: 20px;
             margin-top: 50px;
+            margin-left: 150px; /* 整体右移部分 */
         }
 
         /* 个人照片 */
         .photo {
-            border-radius: 50%;
             width: 180px; /* 照片放大1.2倍 */
-            height: 180px;
-            margin-right: 80px; /* 向右移动一些 */
+            height: auto; /* 保持原始比例 */
+            margin-right: 200px; /* 向右移动一些 */
         }
 
         /* 个人信息框 */
@@ -53,9 +53,15 @@
             margin-bottom: 10px;
         }
 
-        /* 右侧的地点和时间 */
-        .education .location-time {
-            text-align: right; /* 使地点和时间信息右对齐 */
+        /* 使用 Flexbox 使得"地点和时间"与学校信息在一行 */
+        .education .info-row {
+            display: flex;
+            justify-content: space-between; /* 让内容分别对齐 */
+            align-items: center;
+        }
+
+        .education .info-row li {
+            margin: 0;
         }
 
         /* 缩进处理 */
@@ -64,11 +70,20 @@
         }
 
         /* 兴趣区域 */
+        .interests {
+            position: absolute; /* 将兴趣区域定位到右侧 */
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%); /* 使其垂直居中 */
+            display: flex;
+            flex-direction: column; /* 纵向排列图片 */
+            align-items: center;
+        }
+
         .interests img {
             width: 100px;
             height: auto;
-            margin-right: 10px;
-            margin-top: 10px;
+            margin-bottom: 20px; /* 图片之间的间距 */
         }
 
         /* 可伸缩的博客模块 */
@@ -114,7 +129,7 @@
 
     <!-- 个人信息展示区域 -->
     <div class="container">
-        <img src="person.jpg" alt="Zimo Song" class="photo"> 
+        <img src="person.jpg" alt="Zimo Song" class="photo"> <!-- 替换为你的个人照片路径 -->
         <div class="info">
             <h2>Zimo Song</h2>
             <p>Hello! I am Zimo Song. Welcome to my personal website.</p>
@@ -125,7 +140,7 @@
                     <li><strong>Southern University of Science and Technology</strong></li>
                     <li class="indent">Department of Statistics and Data Science</li>
                     <li class="indent">Bachelor of Data Science and Big Data Technology</li>
-                    <div class="location-time">
+                    <div class="info-row">
                         <li>Shenzhen, China</li>
                         <li>09/2022 - 07/2026</li>
                     </div>
@@ -142,13 +157,14 @@
             <ul>
                 <li>Violin, Go, Photography</li>
             </ul>
-
-            <div class="interests">
-                <img src="violin.jpg" alt="Violin 1"> <!-- 替换为你的小提琴图片路径 -->
-                <img src="go.png" alt="Go"> <!-- 替换为你关于围棋的图片路径 -->
-                <img src="photography.jpg" alt="Photography"> <!-- 替换为你关于摄影的图片路径 -->
-            </div>
         </div>
+    </div>
+
+    <!-- 兴趣图片显示区域 -->
+    <div class="interests">
+        <img src="violin.jpg" alt="Violin 1"> <!-- 替换为你的小提琴图片路径 -->
+        <img src="go.png" alt="Go"> <!-- 替换为你关于围棋的图片路径 -->
+        <img src="photography.jpg" alt="Photography"> <!-- 替换为你关于摄影的图片路径 -->
     </div>
 
     <!-- 博客模块 -->
