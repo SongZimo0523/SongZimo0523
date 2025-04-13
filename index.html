@@ -176,7 +176,7 @@
 
             <h4>2. 数据导入</h4>
             <p>建立数据库 `survival_analysis`，并在其中建立原始数据表 `bronze_customers`，和经过处理的数据表 `silver_monthly_customers` 向数据库的 table 导入数据，以便开展之后的生存分析：</p>
-            <img src="2.1.png" style="width: 50%; max-width: 600px; margin-bottom: 20px;"> 
+            <img src="2.1.png" style="width: 50%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>其中，`Tenure` 与 `Churn` 两列数据对于生存分析非常重要</p>
             <ul>
                 <li><strong>Tenure</strong>（服务期限）：客户与公司保持订阅关系的时间</li>
@@ -186,43 +186,80 @@
             <h4>3. Kaplan-Meier 模型</h4>
             <p>用 Kaplan-Meier 构建生存概率曲线，曲线整体较为平滑，在 timeline 的初期和默契，生存概率下降速率较大</p>
             <p>由 Kaplan-Meier 模型计算得生存时间中位数为 34，即总体客户的取消订阅的时间中位数为 34 个月</p>
-            <img src="3.1.png" style="width: 25%; max-width: 600px; margin-bottom: 20px;"> 
+            <img src="3.1.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>接下来评估协变量水平的生存概率，Kaplan-Meier模型适用于单变量分析，这里考虑在单变量取不同值时，各组的生存曲线是否有显著的不同，理想情况（零假设）为各组之间有显著的差异</p>
             <p>绘制按各协变量分组的 Kaplan-Meier 曲线，并进行 Log-rank 检验，图中曲线有明显区别或Log-rank 检验p值小于0.05，表示该协变量取值显著影响生存概率曲线</p>
             <p>gender：两组曲线十分接近，用Log-rank进一步检测，零假设为两组曲线无显著性差异，gender对应的p值为0.2045，大于0.05，当显著性水平为0.05时，我们可以认为这两个分组在统计学上是等效的</p>
-            <img src="3.2.png" style="width: 20%; max-width: 600px; margin-bottom: 20px;"> 
+            <img src="3.2.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>onlineSecurity：各曲线间有明显差异，可以认为这种该协变量取值差异会显著影响生存概率曲线</p>
-            <img src="3.3.png" style="width: 20%; max-width: 600px; margin-bottom: 20px;"> 
+            <img src="3.3.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>seniorCitizen：两组曲线十分接近，但Log-rank 检验显示有明显差异，可以认为这种该协变量取值差异会显著影响生存概率曲线</p>
-            <img src="3.4.png" style="width: 20%; max-width: 600px; margin-bottom: 20px;"> 
+            <img src="3.4.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>partner：各曲线间有明显差异，可以认为这种该协变量取值差异会显著影响生存概率曲线</p>
-            <img src="3.5.png" style="width: 20%; max-width: 600px; margin-bottom: 20px;"> 
+            <img src="3.5.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>dependents：各曲线间有明显差异，可以认为这种该协变量取值差异会显著影响生存概率曲线</p>
-            <img src="3.6.png" style="width: 20%; max-width: 600px; margin-bottom: 20px;"> 
+            <img src="3.6.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>phoneService：两组曲线十分接近，用Log-rank进一步检测，phoneService对应的p值为0.3776，可以认为这两个分组在统计学上是等效的</p>
-            <img src="3.7.png" style="width: 20%; max-width: 600px; margin-bottom: 20px;"> 
+            <img src="3.7.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>multipleLines：据图表显示，可以认为这种该协变量取值差异会显著影响生存概率曲线</p>
-            <img src="3.8.png" style="width: 20%; max-width: 600px; margin-bottom: 20px;"> 
+            <img src="3.8.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>internetService：据图表显示，可以认为这种该协变量取值差异会显著影响生存概率曲线</p>
-            <img src="3.9.png" style="width: 20%; max-width: 600px; margin-bottom: 20px;"> 
+            <img src="3.9.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>streamingTV：据图表显示，可以认为这种该协变量取值差异会显著影响生存概率曲线</p>
-            <img src="3.10.png" style="width: 20%; max-width: 600px; margin-bottom: 20px;"> 
+            <img src="3.10.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>streamingMovies：据图表显示，可以认为这种该协变量取值差异会显著影响生存概率曲线</p>
-            <img src="3.11.png" style="width: 20%; max-width: 600px; margin-bottom: 20px;"> 
+            <img src="3.11.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>onlineBackup：据图表显示，可以认为这种该协变量取值差异会显著影响生存概率曲线</p>
-            <img src="3.13.png" style="width: 20%; max-width: 600px; margin-bottom: 20px;"> 
+            <img src="3.13.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>deviceProtection：据图表显示，可以认为这种该协变量取值差异会显著影响生存概率曲线</p>
-            <img src="3.14.png" style="width: 20%; max-width: 600px; margin-bottom: 20px;"> 
+            <img src="3.14.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>techSupport：据图表显示，可以认为这种该协变量取值差异会显著影响生存概率曲线</p>
-            <img src="3.15.png" style="width: 20%; max-width: 600px; margin-bottom: 20px;"> 
+            <img src="3.15.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>paperlessBilling：据图表显示，可以认为这种该协变量取值差异会显著影响生存概率曲线</p>
-            <img src="3.16.png" style="width: 20%; max-width: 600px; margin-bottom: 20px;"> 
+            <img src="3.16.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>paymentMethod： “Bank transfer (automatic)” 和 “Credit card (automatic)”  的取值分组间没有显著的差异，而其他取值分组间的差异均会显著影响生存概率曲线</p>
-            <img src="3.17.png" style="width: 20%; max-width: 600px; margin-bottom: 20px;"> 
+            <img src="3.17.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>上述操作评估了协变量水平的Kaplan-Meier生存曲线，结果显示：`gender`、`phoneService`，以及`paymentMethod`的 “Bank transfer (automatic)” 和 “Credit card (automatic)” 的分组间没有显著的差异，这几项的取值可能不会显著影响用户的生存曲线，而其他列数据均对生存曲线有显著性影响 </p>
             <p>除此之外，还可以进一步提取指定协变量取值的生存概率，用于后续分析，输出结果如图所示：</p>
-            <img src="3.18.png" style="width: 33%; max-width: 600px; margin-bottom: 20px;"> 
+            <img src="3.18.png" style="width: 5%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
             <p>Kaplan-Meier适用于单变量分析，对于影响客户生存曲线的多变量分析任务，由下一节Cox Proportional Hazards 模型完成</p>
+
+            <h4>4. Cox Proportional Hazards 模型</h4>
+            <p>Cox Proportional Hazards 模型，即cox风险比例模型，是生存分析中的一种半参数模型，通过协变量来估计风险比。模型假设每个个体的生存风险（即事件发生的速率）是由其协变量决定的，而这些协变量影响生存风险的方式是比例性的</p>
+            <p>如下方公式所示，风险比 = 基线风险 * 部分风险，其中部分风险为变量值与基线变量不同时发生的危险变化</p>
+            <img src="4.1.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <p>该模型假设实验组与baseline组的风险比例随时间成正比</p>
+            <p>对相关列进行one-hot编码后，使用生存时间（tenure）和事件标志（churn）拟合 Cox Proportional Hazards 模型：</p>
+            <img src="4.2.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <p>评估Cox比例风险模型需要关注：</p>
+            <ul>
+                <li>1.各协变量的统计显著性</li>
+                <li>2.模型参数的置信区间</li>
+                <li>3.各协变量对于风险比例的影响</li>
+            </ul>
+            <p>从summary中可以看到这里的四个协变量在alpha=0.05时都是显著的，summary中也显示了模型参数的置信区间</p>
+            <p>各协变量对于风险比例的影响由下图给出，可以看出四个协变量独热编码对应值为1时，都会减少停止订阅的风险，减少的幅度从高到低为：`onlineBackup_Yes`, `techSupport_Yes`, `dependents_Yes`, `internetService_DSL`</p>
+            <img src="4.3.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <p>需要进一步检查 Cox 风险比例模型的比例风险假设是否成立</p>
+            <p>1.Statistical Test检查是否满足假设，只有`dependents_Yes`满足了Cox模型的比例风险假设</p>
+            <img src="4.4.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <p>2.Schoenfeld Residuals输出图像检查是否满足假设</p>
+            <p>理想情况下Schoenfeld Residuals不应随时间有明显变动，即残差线应尽量与水平平行并平坦。从图中可知`dependents_Yes`满足该假设，`internetService_DSL`对应的残差随时间而变动。`onlineBackup_Yes`对应的残差随时间变动最明显，`techSupport_Yes`对应的残差在时间线尽头附近被影响得最明显</p>
+            <img src="4.5.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <img src="4.6.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <p>3.Log-log Kaplan-Meier Plots检查是否满足假设</p>
+            <p>Log-Log Kaplan-Meier 曲线结果显示`internetService`不同组曲线间平行效果最差。`onlineBackup`, `techSupport`, `dependents`三项在log(timeline)为1-3之间时，各组曲线较为平行，但小于1或大于3时平行效果较差</p>
+            <img src="4.7.png" style="width: 20%; max-width: 600px; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;"> 
+            <p>检验结果为Cox风险比例模型用于该数据并不满足假设，有以下解决方案：</p>
+            <ul>
+                <li>1.保持模型不变，建模目标为预测，关注损失度量来选择最终模型</li>
+                <li>2.对现有模型进行分层处理，对于少数违反风险比例假设的变量进行分层，为每个分层变量创建不同的基线风险</li>
+                <li>3.引入时间依赖变量，通过引入交互项来建模时间依赖变量，即扩展 Cox 比例风险模型</li>
+                <li>4.使用三次样条或分段常数风险</li>
+                <li>5.使用其他方法</li>
+            </ul>
+            <p>除此之外，还可以进一步提取指定协变量取值的生存概率，用于后续分析，输出结果如图所示：</p>
+            <p>除此之外，还可以进一步提取指定协变量取值的生存概率，用于后续分析，输出结果如图所示：</p>
             
         </div>
     </div>
