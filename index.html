@@ -82,7 +82,7 @@
         }
 
         .interests img {
-            width: 210px;
+            width: 220px;
             height: auto;
             margin-bottom: 20px; /* 图片之间的间距 */
         }
@@ -168,8 +168,22 @@
     <div class="blog-section">
         <div class="blog-header" onclick="toggleBlogContent()">Survival Analysis Blog</div>
         <div class="blog-content">
+            <h4>(2) 基于虚拟电信公司数据的生存分析报告</h4>
+
+            <h4>1. 总述</h4>
             <p>生存分析是一种统计方法，主要用于分析时间到特定事件发生的数据，核心目的是估算和比较不同组的生存概率。</p>
             <p>本次生存分析针对虚拟电信公司数据，目的是预测客户在一定时间内的生存（未流失）概率，特别考虑了在某些条件下客户是否会加速流失的问题，并以此评估客户生涯价值。</p>
+
+            <h4>2. 数据导入</h4>
+            <p>建立数据库 `survival_analysis`，并在其中建立原始数据表 `bronze_customers`，和经过处理的数据表 `silver_monthly_customers` 向数据库的 table 导入数据，以便开展之后的生存分析：其中，`Tenure` 与 `Churn` 两列数据对于生存分析非常重要。</p>
+            <ul>
+                <li><strong>Tenure</strong>（服务期限）：客户与公司保持订阅关系的时间</li>
+                <li><strong>Churn</strong>（客户流失）：一个布尔值，表示客户是否仍然是订阅用户</li>
+            </ul>
+
+            <h4>3. Kaplan-Meier 模型</h4>
+            <p>用 Kaplan-Meier 构建生存概率曲线，曲线整体较为平滑，在 timeline 的初期和默契，生存概率下降速率较大。</p>
+            <p>由 Kaplan-Meier 模型计算得生存时间中位数为 34，即总体客户的取消订阅的时间中位数为 34 个月。</p>
         </div>
     </div>
 
