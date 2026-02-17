@@ -1,4 +1,4 @@
-## Hi there 👋
+## Hi there, I'm Zimo Song. 👋
 
 <!--
 **SongZimo0523/SongZimo0523** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
